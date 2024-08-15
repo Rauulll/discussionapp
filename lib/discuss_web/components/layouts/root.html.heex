@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" class="[scrollbar-gutter:stable]">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content={get_csrf_token()} />
+    <.live_title suffix=" · Phoenix Framework">
+      <%= assigns[:page_title] || "Discuss" %>
+    </.live_title>
+    <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script>
+      window.userToken = "<%= assigns[:user_token] %>";
+    </script>
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
+    </script>    
+  </head>
+  <body class="bg-white w-full">
+    <nav>
+      <div class="nav-wrapper container">
+        <a href="/" class="brand-logo">Discussions</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <%= if @conn.assigns[:user] do %>
+          <a class="waves-effect waves-light btn-small" href={~p"/auth/signout"}>Sign out</a>
+          <% else %>
+            <a class="waves-effect waves-light btn-small" href={~p"/auth/#{@conn.params[:provider] || "github"}"}>Sign in with Github</a>
+          <% end %>          
+        </ul>
+      </div>
+      <div>
+        <.flash_group flash={@flash} />
+      </div>
+    </nav>
+    <div class="nav-wrapper container">
+      <%= @inner_content %>
+    </div>    
+  </body>
+</html>

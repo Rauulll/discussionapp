@@ -1,0 +1,19 @@
+<script>
+  document.addEventListener("DOMContentLoaded", (event) =>{
+    window.createSocket("<%= @topic.id %>")
+  }) 
+</script>
+<.header>
+  <%= @topic.title %>
+  <:subtitle><%= @topic.description %></:subtitle>
+</.header>
+<input id="comment" label="comment">
+<div id="post" class="text-right">
+  <.button> Comment! </.button>
+</div>
+
+<div id="collection">
+  <ul class="p-4 m-4"></ul>
+</div>
+
+<.back navigate={~p"/topics"}>Back to topics</.back>

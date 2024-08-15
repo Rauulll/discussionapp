@@ -1,0 +1,28 @@
+<.header>
+  Listing Topics
+  <:actions>
+    <.link href={~p"/topics/new"}>
+      <.button>New Topic</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="topics" rows={@topics} row_click={&JS.navigate(~p"/topics/#{&1}")}>
+  <:col :let={topic} label="Title"><%= topic.title %></:col>
+  <:col :let={topic} label="Description"><%= topic.description %></:col>
+  <:action :let={topic}>
+      <div class="sr-only">
+        <.link navigate={~p"/topics/#{topic}"}>Show</.link>
+      </div>
+      <%= if @conn.assigns.user.id == topic.user_id do %>
+      <.link navigate={~p"/topics/#{topic}/edit"}>Edit</.link>
+      <% end %>
+  </:action>
+  <:action :let={topic}>
+    <%= if @conn.assigns.user.id == topic.user_id do %>
+      <.link href={~p"/topics/#{topic}"} method="delete" data-confirm="Are you sure?">
+        Delete
+      </.link>
+    <% end %>
+  </:action>    
+</.table> 
