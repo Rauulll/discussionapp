@@ -1,4 +1,4 @@
-defmodule Discuss.Repo.Migrations.AddDescriptionToTopics do
+defmodule Discuss.Repo.Migrations.AddTimestamp do
   use Ecto.Migration
 
   def change do
